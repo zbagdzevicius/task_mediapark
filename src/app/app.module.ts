@@ -8,9 +8,11 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { LayoutModule } from './layout/layout.module';
+import { AuthModule } from './auth/auth.module';
 
 const SELF_MODULES = [
-  LayoutModule
+  LayoutModule,
+  AuthModule
 ];
 
 @NgModule({

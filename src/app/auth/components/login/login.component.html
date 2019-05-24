@@ -1,3 +1,6 @@
-<p>
-  login works!
-</p>
+<h1>Prisijungimas</h1>
+<form [formGroup]="userLoginForm" (ngSubmit)="onSubmit()">
+  <input formControlName="email" placeholder="el. paštas">
+  <input formControlName="password" placeholder="slaptažodis">
+  <button type = "submit">Prisijungti</button>
+</form>
