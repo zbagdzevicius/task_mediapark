@@ -2,19 +2,77 @@
 
 <table *ngIf="cars">
   <tr>
-    <th *ngFor="let item of carAddForm.value | keyvalue">{{item.key}}</th>
+    <th></th>
+    <th></th>
+    <th *ngFor="let item of car.carData | keyvalue">{{ item.key }}</th>
+    <th *ngFor="let item of car.customField | keyvalue">
+      <span *ngIf="item.key === 'customFieldName'">{{ item.value }}</span>
+    </th>
   </tr>
   <tr *ngFor="let car of cars.cars">
-    <th *ngFor="let item of car | keyvalue">{{item.value}}</th>
     <th><button (click)="deleteCar(car)">Delete</button></th>
+    <th><button (click)="editCar(car)">Edit</button></th>
+    <th *ngFor="let item of car.carData | keyvalue">{{ item.value }}</th>
+    <th *ngFor="let item of car.customField | keyvalue">
+      <span *ngIf="item.key === 'customFieldValue'">{{ item.value }}</span>
+    </th>
   </tr>
 </table>
 
-<h2>Add new car</h2>
-<form [formGroup]="carAddForm" (ngSubmit)="addCar()">
-  <input formControlName="id" placeholder="id" type="number" min="1" max="9999999">
-  <input formControlName="name" placeholder="name">
-  <input formControlName="price" placeholder="price" type="number" min="100" max="9999999">
-  <input formControlName="additional" placeholder="Additional">
-  <button type="submit">Add</button>
-</form>
+
+
+
+<button (click)="isCarAddOpen=!isCarAddOpen">Add car form</button>
+<div *ngIf="isCarAddOpen">
+  <h2>Add new car</h2>
+  <form [formGroup]="carAddForm" (ngSubmit)="addCar()">
+    <input
+      formControlName="id"
+      placeholder="id"
+      type="number"
+      min="1"
+      max="9999999"
+    />
+    <input formControlName="name" placeholder="name" />
+    <input
+      formControlName="price"
+      placeholder="price"
+      type="number"
+      min="100"
+      max="9999999"
+    />
+    <input formControlName="customFieldName" placeholder="custom column name" />
+    <input
+      formControlName="customFieldValue"
+      placeholder="custom column value"
+    />
+    <button type="submit">Add</button>
+  </form>
+</div>
+
+<div *ngIf="isCarEditOpen">
+  <h2>Edit existing car</h2>
+  <form [formGroup]="carEditForm" (ngSubmit)="submitEditedCar()">
+    <input
+      formControlName="id"
+      placeholder="id"
+      type="number"
+      min="1"
+      max="9999999"
+    />
+    <input formControlName="name" placeholder="name" />
+    <input
+      formControlName="price"
+      placeholder="price"
+      type="number"
+      min="100"
+      max="9999999"
+    />
+    <input formControlName="customFieldName" placeholder="custom column name" />
+    <input
+      formControlName="customFieldValue"
+      placeholder="custom column value"
+    />
+    <button type="submit">Edit</button>
+  </form>
+</div>

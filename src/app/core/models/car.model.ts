@@ -1,14 +1,13 @@
+import { CarData } from './car-data.model';
+import { AbstractModel } from './abstract.model';
+
 export class Car {
 
-    id: number;
-    name: string;
-    price: number;
-    additional?: string;
+    carData: CarData;
+    customField?: AbstractModel;
 
-    constructor() {
-        this.id = Math.floor(Math.random() * 1000) + 1;
-        this.name = null;
-        this.price = null;
-        this.additional = null;
+    constructor(carData: CarData, abstractData: AbstractModel) {
+        this.carData = carData;
+        this.customField = abstractData;
     }
 }
