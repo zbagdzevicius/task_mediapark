@@ -17,13 +17,12 @@ export class AppComponent {
   constructor(
     private router: Router
   ) {
-
     this.isLoggedIn$
       .subscribe(isLoggedIn => {
         if (isLoggedIn === true) {
-          return this.router.navigate['table'];
+          this.router.navigateByUrl('/table');
         } else {
-          return this.router.navigate[''];
+          this.router.navigateByUrl('/');
         }
       });
   }

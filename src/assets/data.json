@@ -1,0 +1,29 @@
+{
+    "cars": [
+      {
+        "name": "Bmw z3",
+        "price": 33000,
+        "id": 1
+      },
+      {
+        "name": "Audi q7",
+        "price": 42000,
+        "id": 2
+      },
+      {
+        "name": "Toyota Supra",
+        "price": 60000,
+        "id": 3
+      },
+      {
+        "name": "Porsche 911",
+        "price": 80000,
+        "id": 4
+      },
+      {
+        "name": "Tesla roadster",
+        "price": 250000,
+        "id": 5
+      }
+    ]
+  }

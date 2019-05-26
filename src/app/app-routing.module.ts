@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { CanActivateViaAuthGuard } from './core/guards/auth.guard';
 
 const routes: Routes = [
   {
@@ -8,7 +9,8 @@ const routes: Routes = [
   },
   {
     path: 'table',
-    loadChildren: './table/table.module#TableModule'
+    loadChildren: './table/table.module#TableModule',
+    canActivate: [CanActivateViaAuthGuard]
   }
 ];
 

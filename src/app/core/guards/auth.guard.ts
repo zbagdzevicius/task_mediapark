@@ -1,36 +1,31 @@
-// import { Subscription, Observable } from 'rxjs';
-// import { Injectable, OnDestroy } from '@angular/core';
-// import {
-//     Router,
-//     CanActivate,
-//     ActivatedRouteSnapshot,
-//     RouterStateSnapshot
-// } from '@angular/router';
-// import { Store } from '@ngrx/store';
+import { Subscription, Observable } from 'rxjs';
+import { Injectable, OnDestroy } from '@angular/core';
+import {
+    Router,
+    CanActivate,
+    ActivatedRouteSnapshot,
+    RouterStateSnapshot
+} from '@angular/router';
+import { AuthState } from 'src/app/auth/state/auth.state';
+import { Store, Select } from '@ngxs/store';
 
-// @Injectable()
-// export class AuthGuard implements CanActivate, OnDestroy {
-//     isAuthenticated: boolean;
-//     subscription: Subscription;
+@Injectable()
+export class CanActivateViaAuthGuard implements CanActivate {
+    @Select(AuthState.getAuthStatus) isLoggedIn$: Observable<boolean>;
+    isLoggedIn: boolean;
 
-//     constructor(private store: Store<AppState>, private router: Router) { }
+    constructor(private store: Store, private router: Router) { }
 
-//     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-//         this.subscription = this.store
-//             .select(getAuthStatus)
-//             .subscribe(isAuthenticated => {
-//                 this.isAuthenticated = isAuthenticated;
-//                 if (!isAuthenticated) {
-//                     this.router.navigate(['/auth/login'], {
-//                         queryParams: { returnUrl: state.url }
-//                     });
-//                 }
-//             });
+    canActivate() {
+        this.isLoggedIn$
+            .subscribe(isLoggedIn => {
+                if (!isLoggedIn) {
+                    this.router.navigate(['']);
+                }
+                this.isLoggedIn = isLoggedIn;
+            });
+        console.log(this.isLoggedIn);
+        return this.isLoggedIn;
+    }
 
-//         return this.isAuthenticated;
-//     }
-
-//     ngOnDestroy() {
-//         this.subscription.unsubscribe();
-//     }
-// }
+}

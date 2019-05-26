@@ -4,7 +4,6 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { RouterModule } from '@angular/router';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { NgxsModule } from '@ngxs/store';
@@ -14,10 +13,13 @@ import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin';
 import { LayoutModule } from './layout/layout.module';
 import { AuthModule } from './auth/auth.module';
 import { AuthState } from './auth/state/auth.state';
+import { CoreModule } from './core/core.module';
+import { CanActivateViaAuthGuard } from './core/guards/auth.guard';
 
 const SELF_MODULES = [
   LayoutModule,
-  AuthModule
+  AuthModule,
+  CoreModule
 ];
 
 @NgModule({
@@ -33,12 +35,10 @@ const SELF_MODULES = [
     NgxsLoggerPluginModule.forRoot(),
     AppRoutingModule,
     RouterModule,
-    FormsModule,
-    ReactiveFormsModule,
     HttpClientModule,
     ...SELF_MODULES
   ],
-  providers: [],
+  providers: [CanActivateViaAuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
