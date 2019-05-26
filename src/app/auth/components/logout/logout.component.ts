@@ -12,10 +12,13 @@ import { Observable } from 'rxjs';
 export class LogoutComponent implements OnInit {
 
   @Select(AuthState.getAuthStatus) isLoggedIn$: Observable<boolean>;
+  @Select(AuthState.getAuthUser) email$: Observable<boolean>;
   isLoggedIn: boolean;
+  email: string;
 
   constructor(private store: Store) {
     this.isLoggedIn$.subscribe(data => this.isLoggedIn = data);
+    this.email$.subscribe(data => this.email = data);
   }
 
 

@@ -1,1 +1,4 @@
-<button (click)="onSubmit()" *ngIf="isLoggedIn == true">Logout</button>
+<div *ngIf="isLoggedIn">
+    <h2>Hello, {{email}}</h2>
+    <button (click)="onSubmit()">Logout</button>
+</div>

@@ -17,6 +17,10 @@ export class AuthState {
   static getAuthStatus(auth: AuthStateModel) {
       return auth.loggedIn;
   }
+  @Selector()
+  static getAuthUser(auth: AuthStateModel) {
+      return auth.email;
+  }
 
   @Action(SetAuth)
   setAuth(context: StateContext<AuthStateModel>, { payload }: SetAuth) {

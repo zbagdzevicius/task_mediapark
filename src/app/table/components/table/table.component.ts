@@ -17,8 +17,10 @@ export class TableComponent implements OnInit {
   customField: AbstractModel = new AbstractModel();
   car: Car = new Car(this.carData, this.customField);
   cars: Cars;
+
   carAddForm: FormGroup;
   carEditForm: FormGroup;
+  sortForm: FormGroup;
 
   isCarAddOpen: false;
   isCarEditOpen: boolean;
@@ -32,6 +34,10 @@ export class TableComponent implements OnInit {
     this.getCarsData();
     this.carAddForm = this.createFormGroup();
     this.carEditForm = this.createFormGroup();
+    this.sortForm = this.formBuilder.group({
+      sortBy: [null],
+      sortType: [null]
+    });
   }
 
   ngOnInit() {
@@ -79,7 +85,7 @@ export class TableComponent implements OnInit {
   }
 
   editCar(car: Car) {
-    this.isCarEditOpen = true;
+    this.isCarEditOpen = !this.isCarEditOpen;
     this.currentEditing = car;
     this.currentEditingCarIndex = this.cars.cars.indexOf(car);
 
@@ -114,13 +120,51 @@ export class TableComponent implements OnInit {
       this.car.customField.customFieldValue = form.customFieldValue;
     }
 
-    console.log(this.car);
-    console.log(this.cars.cars[this.currentEditingCarIndex]);
     this.cars.cars[this.currentEditingCarIndex] = this.car;
+    this.isCarEditOpen = !this.isCarEditOpen;
   }
 
-  change(){
-    this.cars.cars.sort()
+  sortDataByColumn() {
+    const form = this.sortForm.value;
+    const column = form.sortBy;
+    const type = form.sortType;
+    if (column === 'name') {
+      if (type === 'ascending') {
+        this.cars.cars.sort((a, b) => {
+          if (a.carData.name < b.carData.name) { return -1; }
+          if (a.carData.name > b.carData.name) { return 1; }
+          return 0;
+        });
+      } else {
+        this.cars.cars.sort((a, b) => {
+          if (a.carData.name < b.carData.name) { return 1; }
+          if (a.carData.name > b.carData.name) { return -1; }
+          return 0;
+        });
+      }
+    }
+    if (column === 'id') {
+      if (type === 'ascending') {
+        this.cars.cars.sort((a, b) => {
+          return a.carData.id - b.carData.id;
+        });
+      } else {
+        this.cars.cars.sort((a, b) => {
+          return b.carData.id - a.carData.id;
+        });
+      }
+    }
+    if (column === 'price') {
+      if (type === 'ascending') {
+        this.cars.cars.sort((a, b) => {
+          return a.carData.price - b.carData.price;
+        });
+      } else {
+        this.cars.cars.sort((a, b) => {
+          return b.carData.price - a.carData.price;
+        });
+      }
+    }
   }
 
 }
