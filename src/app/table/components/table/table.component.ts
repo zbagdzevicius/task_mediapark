@@ -122,6 +122,7 @@ export class TableComponent implements OnInit {
 
     this.cars.cars[this.currentEditingCarIndex] = this.car;
     this.isCarEditOpen = !this.isCarEditOpen;
+    this.carEditForm.reset();
   }
 
   sortDataByColumn() {
