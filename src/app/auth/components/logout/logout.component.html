@@ -1,4 +1,4 @@
-<div *ngIf="isLoggedIn">
-    <h2>Hello, {{email}}</h2>
-    <button (click)="onSubmit()">Logout</button>
-</div>
+<span *ngIf="isLoggedIn">
+    <span class="w3-bar-item">Hello, {{email}}</span>
+    <button class="w3-bar-item w3-button w3-khaki w3-right" (click)="onSubmit()">Logout</button>
+</span>

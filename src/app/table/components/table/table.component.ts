@@ -22,6 +22,7 @@ export class TableComponent implements OnInit {
   carEditForm: FormGroup;
   sortForm: FormGroup;
 
+  isSortFormOpen: false;
   isCarAddOpen: false;
   isCarEditOpen: boolean;
   currentEditing: Car;
