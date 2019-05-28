@@ -12,8 +12,7 @@
       (click)="isCarAddOpen = !isCarAddOpen; isCarEditOpen = false"
       class="w3-button w3-pale-yellow w3-large"
     >
-      <span *ngIf="!isCarAddOpen; else carAddOpened">Open car add form</span>
-      <ng-template #carAddOpened>Close car add form</ng-template>
+      <span>Add Car</span>
     </button>
   </div>
 </div>
@@ -25,15 +24,15 @@
   (ngSubmit)="sortDataByColumn()"
   *ngIf="isSortFormOpen"
 >
-  <div class="w3-container w3-black">
-    <h1>Sort table columns</h1>
+  <div class="w3-bar w3-black">
+    <p class="w3-bar-item w3-cell w3-text-center w3-full-width"><b>Sort table columns</b></p>
   </div>
 
-  <div class="w3-row">
-    <div class="w3-third">
+  <div class="w3-cell-row">
+    <div class="w3-cell w3-section">
       <form [formGroup]="sortForm">
         <div class="w3-container w3-black">
-          <h1>Column</h1>
+          <p><b>Column</b></p>
         </div>
         <span *ngFor="let header of headers">
           <p>
@@ -47,9 +46,9 @@
         </span>
       </form>
     </div>
-    <div class="w3-third">
+    <div class="w3-cell w3-section">
       <div class="w3-container w3-black">
-        <h1>Sort order</h1>
+        <p><b>Order</b></p>
       </div>
       <form [formGroup]="sortForm" class="w3-select">
         <p>
@@ -70,9 +69,15 @@
         </p>
       </form>
     </div>
-    <div class="w3-third">
-      <button type="submit" class="w3-button w3-khaki">
-        Sort By selected column
+    <div class="w3-cell w3-section">
+      <div class="w3-container w3-black">
+        <p><b>Sort</b></p>
+      </div>
+      <button
+        type="submit"
+        class="w3-button w3-block w3-pale-yellow w3-section w3-padding"
+      >
+        Sort
       </button>
     </div>
   </div>
