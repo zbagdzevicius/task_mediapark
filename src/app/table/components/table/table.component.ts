@@ -18,14 +18,16 @@ export class TableComponent implements OnInit {
   car: Car = new Car(this.carData, this.customField);
   cars: Cars;
 
+  headers = [];
+
   carAddForm: FormGroup;
   carEditForm: FormGroup;
   sortForm: FormGroup;
 
-  isSortFormOpen: false;
-  isCarAddOpen: false;
-  isCarEditOpen: boolean;
-  currentEditing: Car;
+  isSortFormOpen = false;
+  isCarAddOpen = false;
+  isCarEditOpen = false;
+  currentEditing: Car = null;
   currentEditingCarIndex: number;
 
   constructor(
@@ -46,7 +48,7 @@ export class TableComponent implements OnInit {
 
   private getCarsData() {
     this.tableService.getTableData()
-      .subscribe((carsArray: Cars) => this.cars = carsArray);
+      .subscribe((carsArray: Cars) => { this.cars = carsArray; this.headers = Object.keys(carsArray.cars[0].carData); });
   }
 
   private createFormGroup() {
@@ -86,9 +88,20 @@ export class TableComponent implements OnInit {
   }
 
   editCar(car: Car) {
-    this.isCarEditOpen = !this.isCarEditOpen;
+    this.isCarAddOpen = false;
+
+    const currenCarIndex = this.cars.cars.indexOf(car);
+
+    if (currenCarIndex === this.currentEditingCarIndex) {
+      this.isCarEditOpen = !this.isCarEditOpen;
+    }
+    if (![car].includes(this.currentEditing) && currenCarIndex !== this.currentEditingCarIndex) {
+      this.isCarEditOpen = true;
+    } else {
+      this.isCarEditOpen = false;
+    }
+    this.currentEditingCarIndex = currenCarIndex;
     this.currentEditing = car;
-    this.currentEditingCarIndex = this.cars.cars.indexOf(car);
 
     const customFields = {
       customFieldName: null, customFieldValue: null
@@ -97,14 +110,18 @@ export class TableComponent implements OnInit {
     if (this.currentEditing.customField) {
       customFields.customFieldName = this.currentEditing.customField.customFieldName;
       customFields.customFieldValue = this.currentEditing.customField.customFieldValue;
+    } else {
+      this.currentEditing.customField = {
+        customFieldName: null, customFieldValue: null
+      };
     }
 
     this.carEditForm.setValue({
       id: this.currentEditing.carData.id,
       name: this.currentEditing.carData.name,
       price: this.currentEditing.carData.price,
-      customFieldName: customFields.customFieldName,
-      customFieldValue: customFields.customFieldValue
+      customFieldName: this.currentEditing.customField.customFieldName,
+      customFieldValue: this.currentEditing.customField.customFieldValue
     });
 
   }
@@ -112,18 +129,20 @@ export class TableComponent implements OnInit {
   submitEditedCar() {
     const form = this.carEditForm.value;
     console.log(form);
-    this.car.carData.id = form.id;
-    this.car.carData.name = form.name;
-    this.car.carData.price = form.price;
+    this.currentEditing.carData.id = form.id;
+    this.currentEditing.carData.name = form.name;
+    this.currentEditing.carData.price = form.price;
 
     if (form.customFieldName) {
-      this.car.customField.customFieldName = form.customFieldName;
-      this.car.customField.customFieldValue = form.customFieldValue;
+      this.currentEditing.customField.customFieldName = form.customFieldName;
+      this.currentEditing.customField.customFieldValue = form.customFieldValue;
+      this.headers.push(form.customFieldName);
     }
 
-    this.cars.cars[this.currentEditingCarIndex] = this.car;
+    this.cars.cars[this.currentEditingCarIndex] = this.currentEditing;
     this.isCarEditOpen = !this.isCarEditOpen;
     this.carEditForm.reset();
+    this.currentEditing = null;
   }
 
   sortDataByColumn() {
@@ -168,5 +187,6 @@ export class TableComponent implements OnInit {
       }
     }
   }
+
 
 }

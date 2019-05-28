@@ -1,5 +1,6 @@
 <button (click)="isSortFormOpen = !isSortFormOpen" class="w3-button w3-khaki">
-  Open sorting
+  <span *ngIf="!isSortFormOpen">Open sorting</span>
+  <span *ngIf="isSortFormOpen">Close sorting</span>
 </button>
 
 <form
@@ -35,10 +36,7 @@
 <table *ngIf="cars" class="w3-table w3-bordered">
   <tr>
     <th></th>
-    <th *ngFor="let item of car.carData | keyvalue">{{ item.key }}</th>
-    <th *ngFor="let item of car.customField | keyvalue">
-      <span *ngIf="item.key === 'customFieldName'">{{ item.value }}</span>
-    </th>
+    <th *ngFor="let header of headers">{{ header }}</th>
   </tr>
   <tr *ngFor="let car of cars.cars">
     <th>
@@ -54,8 +52,9 @@
   </tr>
 </table>
 
-<button (click)="isCarAddOpen = !isCarAddOpen" class="w3-button w3-khaki">
-  Add car form
+<button (click)="isCarAddOpen = !isCarAddOpen; isCarEditOpen = false" class="w3-button w3-khaki">
+  <span *ngIf="!isCarAddOpen">Open car add form</span>
+  <span *ngIf="isCarAddOpen">Close car add form</span>
 </button>
 <form [formGroup]="carAddForm" (ngSubmit)="addCar()" *ngIf="isCarAddOpen">
   <h2>Add new car</h2>
