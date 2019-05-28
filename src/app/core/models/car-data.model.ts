@@ -1,12 +1,12 @@
 export class CarData {
 
   id: number;
-  price: number;
   name: string;
+  price: number;
 
   constructor() {
-      this.id = null;
-      this.price = null;
-      this.name = null;
+    this.id = null;
+    this.name = null;
+    this.price = null;
   }
 }

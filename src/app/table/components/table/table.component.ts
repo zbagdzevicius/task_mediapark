@@ -19,11 +19,13 @@ export class TableComponent implements OnInit {
   cars: Cars;
 
   headers = [];
+  requiredFieldsCount: number;
 
   carAddForm: FormGroup;
   carEditForm: FormGroup;
   sortForm: FormGroup;
 
+  isDeleteFormOpen = false;
   isSortFormOpen = false;
   isCarAddOpen = false;
   isCarEditOpen = false;
@@ -34,6 +36,7 @@ export class TableComponent implements OnInit {
     private tableService: TableService,
     private formBuilder: FormBuilder
   ) {
+    this.headers = Object.keys(this.carData);
     this.getCarsData();
     this.carAddForm = this.createFormGroup();
     this.carEditForm = this.createFormGroup();
@@ -48,15 +51,18 @@ export class TableComponent implements OnInit {
 
   private getCarsData() {
     this.tableService.getTableData()
-      .subscribe((carsArray: Cars) => { this.cars = carsArray; this.headers = Object.keys(carsArray.cars[0].carData); });
+      .subscribe((carsArray: Cars) => {
+        this.cars = carsArray;
+        this.requiredFieldsCount = this.headers.length;
+      });
   }
 
   private createFormGroup() {
     return this.formBuilder.group(
       {
-        id: [this.car.carData.id],
-        name: [this.car.carData.name, Validators.required],
         price: [this.car.carData.price, Validators.required],
+        name: [this.car.carData.name, Validators.required],
+        id: [this.car.carData.id],
         customFieldName: [this.car.customField.customFieldName],
         customFieldValue: [this.car.customField.customFieldValue]
       }
@@ -94,11 +100,8 @@ export class TableComponent implements OnInit {
 
     if (currenCarIndex === this.currentEditingCarIndex) {
       this.isCarEditOpen = !this.isCarEditOpen;
-    }
-    if (![car].includes(this.currentEditing) && currenCarIndex !== this.currentEditingCarIndex) {
+    } else if (currenCarIndex !== this.currentEditingCarIndex) {
       this.isCarEditOpen = true;
-    } else {
-      this.isCarEditOpen = false;
     }
     this.currentEditingCarIndex = currenCarIndex;
     this.currentEditing = car;
@@ -136,6 +139,9 @@ export class TableComponent implements OnInit {
     if (form.customFieldName) {
       this.currentEditing.customField.customFieldName = form.customFieldName;
       this.currentEditing.customField.customFieldValue = form.customFieldValue;
+      if (this.headers.length > this.requiredFieldsCount) {
+        this.headers.pop();
+      }
       this.headers.push(form.customFieldName);
     }
 
@@ -143,6 +149,17 @@ export class TableComponent implements OnInit {
     this.isCarEditOpen = !this.isCarEditOpen;
     this.carEditForm.reset();
     this.currentEditing = null;
+  }
+
+  deleteColumn() {
+    this.cars.cars.forEach((car) => {
+      if (car.customField) {
+        car.customField.customFieldName = null;
+        car.customField.customFieldValue = null;
+      }
+    });
+    this.headers.pop();
+    this.isDeleteFormOpen = false;
   }
 
   sortDataByColumn() {

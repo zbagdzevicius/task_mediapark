@@ -13,12 +13,14 @@ export class AppComponent {
   title = 'mediapark';
 
   @Select(AuthState.getAuthStatus) isLoggedIn$: Observable<boolean>;
+  isLoggedIn: boolean;
 
   constructor(
     private router: Router
   ) {
     this.isLoggedIn$
       .subscribe(isLoggedIn => {
+        this.isLoggedIn = isLoggedIn;
         if (isLoggedIn === true) {
           this.router.navigateByUrl('/table');
         } else {

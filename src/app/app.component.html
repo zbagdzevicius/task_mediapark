@@ -1,3 +1,14 @@
-<app-header></app-header>
-<router-outlet></router-outlet>
-<app-footer></app-footer>
+<div class="w3-container">
+  <div class="w3-padding-48" *ngIf="isLoggedIn">
+    <div class="w3-bar w3-black w3-xlarge w3-border">
+      <app-header></app-header>
+    </div>
+  </div>
+  <router-outlet></router-outlet>
+</div>
+
+<div class="w3-bottom w3-large">
+  <div class="w3-bar w3-black">
+    <app-footer></app-footer>
+  </div>
+</div>

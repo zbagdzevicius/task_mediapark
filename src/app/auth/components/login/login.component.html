@@ -1,6 +1,16 @@
-<h1>Prisijungimas</h1>
-<form [formGroup]="userLoginForm" (ngSubmit)="onSubmit()">
-  <input formControlName="email" placeholder="el. paštas">
-  <input formControlName="password" placeholder="slaptažodis">
-  <button type = "submit" class="w3-button w3-black">Prisijungti</button>
+<h1 class="w3-display-topmiddle">Prisijungimas</h1>
+<form
+  [formGroup]="userLoginForm"
+  (ngSubmit)="onSubmit()"
+  class="w3-display-middle"
+>
+  <div class="w3-section">
+      <label><b>Email address</b></label>
+    <input formControlName="email" placeholder="el. paštas" class="w3-input w3-border w3-margin-bottom"/>
+    <label><b>Password</b></label>
+    <input formControlName="password" placeholder="slaptažodis" type="password" class="w3-input w3-border w3-margin-bottom"/>
+    <button type="submit" class="w3-button w3-block w3-pale-yellow w3-section w3-padding">
+      Prisijungti
+    </button>
+  </div>
 </form>
