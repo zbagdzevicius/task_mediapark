@@ -12,10 +12,10 @@ import { Observable } from 'rxjs';
 export class LogoutComponent implements OnInit {
 
   @Select(AuthState.getAuthUser) email$: Observable<string>;
-  email: string;
+  name: string;
 
   constructor(private store: Store) {
-    this.email$.subscribe(email => this.email = email);
+    this.email$.subscribe(email => this.name = this.stripEmail(email));
   }
 
 
@@ -24,6 +24,11 @@ export class LogoutComponent implements OnInit {
 
   onSubmit() {
     this.store.dispatch(new ResetAuth());
+  }
+
+  stripEmail(email: string){
+    const emailArray: string[] = email.split('@');
+    return emailArray[0];
   }
 
 }

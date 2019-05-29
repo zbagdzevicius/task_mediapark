@@ -73,6 +73,7 @@ export class TableComponent implements OnInit {
 
   addCar() {
     if (this.carAddForm.valid) {
+      this.isCarAddOpen = false;
       const form = this.carAddForm.value;
       this.car.carData.id = form.id;
       this.car.carData.name = form.name;

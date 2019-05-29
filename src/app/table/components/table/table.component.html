@@ -112,9 +112,11 @@
       </button>
     </th>
     <th *ngFor="let item of car.carData | keyvalue">{{ item.value }}</th>
-    <th *ngIf="car.customField">
-      {{ car.customField.customFieldValue }}
-    </th>
+    <span *ngIf="car.customField">
+      <th *ngIf="car.customField.customFieldValue">
+        {{ car.customField.customFieldValue }}
+      </th>
+    </span>
   </tr>
 </table>
 
@@ -170,7 +172,6 @@
           </div>
           <div class="w3-col s6">
             <button
-              type="submit"
               class="w3-button w3-pale-yellow w3-block"
               (click)="isCarAddOpen = false"
             >

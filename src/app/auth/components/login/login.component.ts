@@ -26,8 +26,6 @@ export class LoginComponent implements OnInit {
     this.userLoginForm = this.formBuilder.group({
       email: [this.user.email, [Validators.required, FormErrorMessagesService.emailValidator]],
       password: [this.user.password, [Validators.required, FormErrorMessagesService.passwordValidator]]
-      // email: [this.user.email],
-      // password: [this.user.password]
     }
     );
 
