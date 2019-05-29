@@ -15,6 +15,7 @@ import { AuthModule } from './auth/auth.module';
 import { AuthState } from './auth/state/auth.state';
 import { CoreModule } from './core/core.module';
 import { CanActivateViaAuthGuard } from './core/guards/auth.guard';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 const SELF_MODULES = [
   LayoutModule,
@@ -38,7 +39,8 @@ const SELF_MODULES = [
     HttpClientModule,
     ...SELF_MODULES
   ],
-  providers: [CanActivateViaAuthGuard],
+  providers: [CanActivateViaAuthGuard,
+    {provide: LocationStrategy, useClass: HashLocationStrategy}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
