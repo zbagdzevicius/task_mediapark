@@ -1,62 +1,93 @@
 <div class="w3-top">
   <div class="w3-bar">
-    <button (click)="isSortFormOpen = !isSortFormOpen" class="w3-button w3-pale-yellow w3-large">
+    <button
+      (click)="isSortFormOpen = !isSortFormOpen"
+      class="w3-button w3-pale-yellow w3-large"
+    >
       <span *ngIf="!isSortFormOpen; else sortFormOpened">Open sorting</span>
       <ng-template #sortFormOpened>Close sorting</ng-template>
     </button>
 
-    <button (click)="isCarAddOpen = !isCarAddOpen; isCarEditOpen = false" class="w3-button w3-pale-yellow w3-large">
+    <button
+      (click)="isCarAddOpen = !isCarAddOpen; isCarEditOpen = false"
+      class="w3-button w3-pale-yellow w3-large"
+    >
       <span>Add Car</span>
     </button>
   </div>
 </div>
 
 <!-- SORT FORM -->
-
-<form [formGroup]="sortForm" (ngSubmit)="sortDataByColumn()" *ngIf="isSortFormOpen">
-  <div class="w3-bar w3-black">
-    <h3 class="w3-bar-item w3-cell w3-text-center w3-full-width"><b>Sort table</b></h3>
-  </div>
-
-  <div class="w3-cell-row">
-    <div class="w3-cell">
-      <div class="w3-container w3-black">
-        <p><b>Column</b></p>
+<form
+  [formGroup]="sortForm"
+  (ngSubmit)="sortDataByColumn()"
+  *ngIf="isSortFormOpen"
+  class="w3-section"
+>
+  <div class="w3-row">
+    <div class="w3-col l3 m5 w3-card">
+      <div class="w3-bar w3-black w3-margin-bottom">
+        <h3 class="w3-bar-item w3-cell w3-text-center w3-full-width">
+          <b>Sort table</b>
+        </h3>
       </div>
-      <form [formGroup]="sortForm">
-          <p *ngFor="let header of headers">
-            <input class="w3-radio" [value]="header" formControlName="sortBy" type="radio" /><label>{{ header }}</label>
-          </p>
-      </form>
-    </div>
-    <div class="w3-cell">
-      <div class="w3-container w3-black">
-        <p class="w3-right"><b>Order</b></p>
-      </div>
-      <form [formGroup]="sortForm" class="w3-right">
-          <p>
-            <input class="w3-radio" value="ascending" formControlName="sortType" type="radio" /><label>ascending</label>
-          </p>
-          <p>
-            <input class="w3-radio" value="descending" formControlName="sortType"
-              type="radio" /><label>descending</label>
-          </p>
-      </form>
-    </div>
 
+      <div class="w3-cell-row">
+        <div class="w3-cell ">
+          <div class="w3-container w3-black">
+            <p><b>Column</b></p>
+          </div>
+          <form [formGroup]="sortForm" class="w3-margin">
+            <p *ngFor="let header of headers">
+              <input
+                class="w3-radio"
+                [value]="header"
+                formControlName="sortBy"
+                type="radio"
+              /><label>{{ header.toUpperCase() }}</label>
+            </p>
+          </form>
+        </div>
+        <div class="w3-cell">
+          <div class="w3-container w3-black">
+            <p><b>Order</b></p>
+          </div>
+          <form [formGroup]="sortForm" class="w3-margin">
+            <p>
+              <input
+                class="w3-radio"
+                value="ascending"
+                formControlName="sortType"
+                type="radio"
+              /><label>ASCENDING</label>
+            </p>
+            <p>
+              <input
+                class="w3-radio"
+                value="descending"
+                formControlName="sortType"
+                type="radio"
+              /><label>DESCENDING</label>
+            </p>
+          </form>
+        </div>
+      </div>
+    </div>
   </div>
 </form>
 
 <!-- MAIN TABLE -->
 
-<table *ngIf="cars" class="w3-table w3-bordered w3-black">
+<table *ngIf="cars" class="w3-table w3-bordered w3-black w3-card">
   <tr class="w3-pale-yellow">
     <th></th>
     <th *ngFor="let header of headers; last as isLast">
-      <span *ngIf="
+      <span
+        *ngIf="
           headers.length === requiredFieldsCount;
           else tableHaveCustomColumn
-        ">
+        "
+      >
         {{ header }}
       </span>
       <ng-template #tableHaveCustomColumn>
@@ -95,19 +126,58 @@
     <div class="w3-container">
       <form [formGroup]="carAddForm" (ngSubmit)="addCar()" *ngIf="isCarAddOpen">
         <label><b>Car ID</b></label>
-        <input formControlName="id" placeholder="id" type="number" min="1" max="9999999" class="w3-input"/>
+        <input
+        formControlName="id"
+        placeholder="id"
+        type="number"
+        min="1"
+        max="9999999999"
+        class="w3-input"
+        />
+        <app-form-error-messages [control]="carAddForm.controls['id']"></app-form-error-messages>
         <label><b>Car model name</b></label>
-        <input formControlName="name" placeholder="name" class="w3-input"/>
+        <input formControlName="name" placeholder="name" class="w3-input" maxlength = "20"/>
+        <app-form-error-messages [control]="carAddForm.controls['name']"></app-form-error-messages>
         <label><b>Car price</b></label>
-        <input formControlName="price" placeholder="price" type="number" min="100" max="9999999" class="w3-input" />
+        <input
+        formControlName="price"
+        placeholder="price"
+        type="number"
+        min="100"
+        max="9999999999"
+        class="w3-input"
+        />
+        <app-form-error-messages [control]="carAddForm.controls['price']"></app-form-error-messages>
         <label><b>Additional column name</b></label>
-        <input formControlName="customFieldName" placeholder="custom column name" class="w3-input" />
+        <input
+        formControlName="customFieldName"
+        placeholder="custom column name"
+        class="w3-input" maxlength = "20"
+        />
+        <app-form-error-messages [control]="carAddForm.controls['customFieldName']"></app-form-error-messages>
         <label><b>Car additional column value</b></label>
-        <input formControlName="customFieldValue" placeholder="custom column value" class="w3-input" />
-        <button type="submit" class="w3-button w3-khaki">Add</button>
-        <button type="submit" class="w3-button w3-pale-yellow w3-right" (click)="isCarAddOpen = false">
-          Close
-        </button>
+        <input
+        formControlName="customFieldValue"
+        placeholder="custom column value"
+        class="w3-input" maxlength = "20"
+        />
+        <app-form-error-messages [control]="carAddForm.controls['customFieldValue']"></app-form-error-messages>
+        <div class="w3-row">
+          <div class="w3-col s6">
+            <button type="submit" class="w3-button w3-khaki w3-block" [disabled]="!carAddForm.valid">
+              Add
+            </button>
+          </div>
+          <div class="w3-col s6">
+            <button
+              type="submit"
+              class="w3-button w3-pale-yellow w3-block"
+              (click)="isCarAddOpen = false"
+            >
+              Close
+            </button>
+          </div>
+        </div>
       </form>
     </div>
   </div>
@@ -121,19 +191,58 @@
     <div class="w3-container">
       <form [formGroup]="carEditForm" (ngSubmit)="submitEditedCar()">
         <label><b>Car ID</b></label>
-        <input formControlName="id" placeholder="id" type="number" min="1" max="9999999" class="w3-input" />
+        <input
+          formControlName="id"
+          placeholder="id"
+          type="number"
+          min="1"
+          max="9999999999"
+          class="w3-input"
+        />
+        <app-form-error-messages [control]="carEditForm.controls['id']"></app-form-error-messages>
         <label><b>Car model name</b></label>
-        <input formControlName="name" placeholder="name" class="w3-input" />
+        <input formControlName="name" placeholder="name" class="w3-input" maxlength = "20"/>
+        <app-form-error-messages [control]="carEditForm.controls['name']"></app-form-error-messages>
         <label><b>Car price</b></label>
-        <input formControlName="price" placeholder="price" type="number" min="100" max="9999999" class="w3-input" />
+        <input
+          formControlName="price"
+          placeholder="price"
+          type="number"
+          min="100"
+          max="9999999999"
+          class="w3-input"
+        />
+        <app-form-error-messages [control]="carEditForm.controls['price']"></app-form-error-messages>
         <label><b>Additional column name</b></label>
-        <input formControlName="customFieldName" placeholder="custom column name" class="w3-input" />
+        <input
+          formControlName="customFieldName"
+          placeholder="custom column name"
+          class="w3-input" maxlength = "20"
+        />
+        <app-form-error-messages [control]="carEditForm.controls['customFieldName']"></app-form-error-messages>
         <label><b>Car additional column value</b></label>
-        <input formControlName="customFieldValue" placeholder="custom column value" class="w3-input" />
-        <button type="submit" class="w3-button w3-khaki">Edit</button>
-        <button type="submit" class="w3-button w3-pale-yellow w3-right" (click)="isCarEditOpen = false">
-          Close
-        </button>
+        <input
+          formControlName="customFieldValue"
+          placeholder="custom column value"
+          class="w3-input" maxlength = "20"
+        />
+        <app-form-error-messages [control]="carEditForm.controls['customFieldValue']"></app-form-error-messages>
+        <div class="w3-row">
+          <div class="w3-half">
+            <button type="submit" class="w3-button w3-khaki w3-block" [disabled]="!carEditForm.valid">
+              Edit
+            </button>
+          </div>
+          <div class="w3-half">
+            <button
+              type="submit"
+              class="w3-button w3-pale-yellow w3-block"
+              (click)="isCarEditOpen = false"
+            >
+              Close
+            </button>
+          </div>
+        </div>
       </form>
     </div>
   </div>
@@ -148,12 +257,21 @@
       <p>
         If you proceed - whole column will be deleted
       </p>
-      <button class="w3-button w3-khaki" (click)="deleteColumn()">
-        Proceed
-      </button>
-      <button class="w3-button w3-pale-yellow w3-right" (click)="isDeleteFormOpen = false">
-        Cancel
-      </button>
+      <div class="w3-row">
+        <div class="w3-half">
+          <button class="w3-button w3-khaki w3-block" (click)="deleteColumn()">
+            Proceed
+          </button>
+        </div>
+        <div class="w3-half">
+          <button
+            class="w3-button w3-pale-yellow w3-block"
+            (click)="isDeleteFormOpen = false"
+          >
+            Cancel
+          </button>
+        </div>
+      </div>
     </div>
   </div>
 </div>

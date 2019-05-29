@@ -6,6 +6,7 @@ import { AuthRoutingModule } from './auth-routing.module';
 import { RegisterComponent } from './components/register/register.component';
 import { LoginComponent } from './components/login/login.component';
 import { LogoutComponent } from './components/logout/logout.component';
+import { CoreModule } from '../core/core.module';
 
 const COMPONENTS = [
   LoginComponent,
@@ -18,7 +19,8 @@ const COMPONENTS = [
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    AuthRoutingModule
+    AuthRoutingModule,
+    CoreModule
   ],
   exports: [LogoutComponent]
 })

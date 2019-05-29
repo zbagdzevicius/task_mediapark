@@ -5,7 +5,7 @@ import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { SetAuth, ResetAuth } from '../../actions/auth.actions';
 import { AuthState } from '../../state/auth.state';
-import { Router } from '@angular/router';
+import { FormErrorMessagesService } from 'src/app/core/components/form-error-messages/form-error-messages.service';
 
 @Component({
   selector: 'app-login',
@@ -21,15 +21,13 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private store: Store,
-    private router: Router
+    private store: Store
   ) {
-    const emailRegEx = /(?=^.{6,25}$)(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&amp;*()_+}{&quot;:;'?/&gt;.&lt;,])(?!.*\s).*$/;
     this.userLoginForm = this.formBuilder.group({
-      // email: [this.user.email, Validators.email],
-      // password: [this.user.password, Validators.pattern(emailRegEx)]
-      email: [this.user.email],
-      password: [this.user.password]
+      email: [this.user.email, [Validators.required, FormErrorMessagesService.emailValidator]],
+      password: [this.user.password, [Validators.required, FormErrorMessagesService.passwordValidator]]
+      // email: [this.user.email],
+      // password: [this.user.password]
     }
     );
 
@@ -46,7 +44,7 @@ export class LoginComponent implements OnInit {
       this.store.dispatch(new SetAuth({ email: this.user.email, loggedIn: true }));
       setTimeout(this.logout, 5 * 60 * 1000);
     } else {
-      console.log('bad credentials');
+      // console.log(this.userLoginForm. );
     }
   }
 

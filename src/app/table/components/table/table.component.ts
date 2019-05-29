@@ -62,11 +62,11 @@ export class TableComponent implements OnInit {
   private createFormGroup() {
     return this.formBuilder.group(
       {
-        price: [this.car.carData.price, Validators.required],
-        name: [this.car.carData.name, Validators.required],
-        id: [this.car.carData.id],
-        customFieldName: [this.car.customField.customFieldName],
-        customFieldValue: [this.car.customField.customFieldValue]
+        price: [this.car.carData.price, [Validators.required, Validators.max(99999999)]],
+        name: [this.car.carData.name, [Validators.required, Validators.minLength(3), Validators.maxLength(20)]],
+        id: [this.car.carData.id, [Validators.required, Validators.max(99999999)]],
+        customFieldName: [this.car.customField.customFieldName, [Validators.maxLength(20), Validators.minLength(1)]],
+        customFieldValue: [this.car.customField.customFieldValue, [Validators.maxLength(20), Validators.minLength(1)]]
       }
     );
   }
@@ -80,10 +80,9 @@ export class TableComponent implements OnInit {
       if (form.customFieldName) {
         this.car.customField.customFieldName = form.customFieldName;
         this.car.customField.customFieldValue = form.customFieldValue;
+        this.headers.push(form.customFieldName);
       }
       this.cars.cars.push(this.car);
-      console.log(this.car);
-      console.log(this.cars);
       this.carAddForm.reset();
     }
   }
@@ -133,7 +132,6 @@ export class TableComponent implements OnInit {
 
   submitEditedCar() {
     const form = this.carEditForm.value;
-    console.log(form);
     this.currentEditing.carData.id = form.id;
     this.currentEditing.carData.name = form.name;
     this.currentEditing.carData.price = form.price;
@@ -206,6 +204,5 @@ export class TableComponent implements OnInit {
       }
     }
   }
-
 
 }
