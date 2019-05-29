@@ -44,6 +44,8 @@ export class TableComponent implements OnInit {
       sortBy: [null],
       sortType: [null]
     });
+    this.sortForm.valueChanges
+      .subscribe(this.sortDataByColumn);
   }
 
   ngOnInit() {
@@ -162,7 +164,7 @@ export class TableComponent implements OnInit {
     this.isDeleteFormOpen = false;
   }
 
-  sortDataByColumn() {
+  sortDataByColumn = () => {
     const form = this.sortForm.value;
     const column = form.sortBy;
     const type = form.sortType;

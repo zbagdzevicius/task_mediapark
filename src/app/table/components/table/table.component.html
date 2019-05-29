@@ -15,43 +15,35 @@
 
 <form [formGroup]="sortForm" (ngSubmit)="sortDataByColumn()" *ngIf="isSortFormOpen">
   <div class="w3-bar w3-black">
-    <p class="w3-bar-item w3-cell w3-text-center w3-full-width"><b>Sort table columns</b></p>
+    <h3 class="w3-bar-item w3-cell w3-text-center w3-full-width"><b>Sort table</b></h3>
   </div>
 
   <div class="w3-cell-row">
-    <div class="w3-cell w3-section">
+    <div class="w3-cell">
       <div class="w3-container w3-black">
         <p><b>Column</b></p>
       </div>
       <form [formGroup]="sortForm">
-        <span *ngFor="let header of headers">
-          <p>
+          <p *ngFor="let header of headers">
             <input class="w3-radio" [value]="header" formControlName="sortBy" type="radio" /><label>{{ header }}</label>
           </p>
-        </span>
       </form>
     </div>
     <div class="w3-cell">
       <div class="w3-container w3-black">
-        <p><b>Order</b></p>
+        <p class="w3-right"><b>Order</b></p>
       </div>
-      <form [formGroup]="sortForm" class="w3-select">
-        <p>
-          <input class="w3-radio" value="ascending" formControlName="sortType" type="radio" /><label>ascending</label>
-        </p>
-        <p>
-          <input class="w3-radio" value="descending" formControlName="sortType" type="radio" /><label>descending</label>
-        </p>
+      <form [formGroup]="sortForm" class="w3-right">
+          <p>
+            <input class="w3-radio" value="ascending" formControlName="sortType" type="radio" /><label>ascending</label>
+          </p>
+          <p>
+            <input class="w3-radio" value="descending" formControlName="sortType"
+              type="radio" /><label>descending</label>
+          </p>
       </form>
     </div>
-    <div class="w3-cell">
-      <div class="w3-container w3-black">
-        <p><b>Sort</b></p>
-      </div>
-      <button type="submit" class="w3-button w3-block w3-pale-yellow w3-section w3-padding">
-        Sort
-      </button>
-    </div>
+
   </div>
 </form>
 
@@ -102,10 +94,15 @@
     </div>
     <div class="w3-container">
       <form [formGroup]="carAddForm" (ngSubmit)="addCar()" *ngIf="isCarAddOpen">
-        <input formControlName="id" placeholder="id" type="number" min="1" max="9999999" class="w3-input" />
-        <input formControlName="name" placeholder="name" />
+        <label><b>Car ID</b></label>
+        <input formControlName="id" placeholder="id" type="number" min="1" max="9999999" class="w3-input"/>
+        <label><b>Car model name</b></label>
+        <input formControlName="name" placeholder="name" class="w3-input"/>
+        <label><b>Car price</b></label>
         <input formControlName="price" placeholder="price" type="number" min="100" max="9999999" class="w3-input" />
+        <label><b>Additional column name</b></label>
         <input formControlName="customFieldName" placeholder="custom column name" class="w3-input" />
+        <label><b>Car additional column value</b></label>
         <input formControlName="customFieldValue" placeholder="custom column value" class="w3-input" />
         <button type="submit" class="w3-button w3-khaki">Add</button>
         <button type="submit" class="w3-button w3-pale-yellow w3-right" (click)="isCarAddOpen = false">

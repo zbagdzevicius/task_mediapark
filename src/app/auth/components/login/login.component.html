@@ -1,19 +1,18 @@
-
-<div class="w3-bar w3-black">
-  <h1 class="w3-bar-item w3-cell w3-text-center w3-full-width">Login</h1>
-</div>
 <form
   [formGroup]="userLoginForm"
   (ngSubmit)="onSubmit()"
   class="w3-display-middle"
 >
+<div class="w3-bar w3-black">
+    <h3 class="w3-bar-item w3-cell w3-text-center w3-full-width">Hello</h3>
+  </div>
   <div class="w3-section">
       <label><b>Email address</b></label>
     <input formControlName="email" placeholder="el. paštas" class="w3-input w3-border w3-margin-bottom"/>
     <label><b>Password</b></label>
     <input formControlName="password" placeholder="slaptažodis" type="password" class="w3-input w3-border w3-margin-bottom"/>
     <button type="submit" class="w3-button w3-block w3-pale-yellow w3-section w3-padding">
-      Prisijungti
+      Login
     </button>
   </div>
 </form>
