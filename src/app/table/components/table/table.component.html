@@ -77,8 +77,8 @@
 </form>
 
 <!-- MAIN TABLE -->
-
-<table *ngIf="cars" class="w3-table w3-bordered w3-black w3-card">
+<div style="overflow-x:auto;">
+  <table *ngIf="cars" class="w3-table w3-bordered w3-black w3-card">
   <tr class="w3-pale-yellow">
     <th></th>
     <th *ngFor="let header of headers; last as isLast">
@@ -119,6 +119,8 @@
     </span>
   </tr>
 </table>
+</div>
+
 
 <div class="w3-modal" *ngIf="isCarAddOpen">
   <div class="w3-modal-content">
