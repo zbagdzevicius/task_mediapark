@@ -8,13 +8,13 @@
   </div>
   <div class="w3-text-center">
     <div class="w3-section">
-      <label class="w3-pale-yellow w3-block"><b>Email address</b></label>
+      <label class="w3-black w3-block"><b>Email address</b></label>
     <input formControlName="email" placeholder="el. paštas" autocomplete="email" class="w3-input w3-border w3-text-center" maxlength = "50"/>
     <app-form-error-messages [control]="userLoginForm.controls['email']"></app-form-error-messages>
 
     </div>
     <div class="w3-section">
-      <label class="w3-pale-yellow w3-block"><b>Password</b></label>
+      <label class="w3-black w3-block"><b>Password</b></label>
       <input formControlName="password" placeholder="slaptažodis" type="password" autocomplete="password" class="w3-input w3-border w3-text-center" maxlength = "25"/>
       <app-form-error-messages [control]="userLoginForm.controls['password']"></app-form-error-messages>
     </div>

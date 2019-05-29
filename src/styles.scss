@@ -9,12 +9,11 @@
   text-align: center;
 }
 html {
-background: url("assets/b.svg");
+background: linear-gradient(0deg, rgba(240,230,140,1) 0%, rgba(255,255,255,1) 100%);
 background-attachment: fixed;
-// background-size: cover;
-//   -webkit-background-size: cover;
-//   -moz-background-size: cover;
-//   -o-background-size: cover;
-  // background-size: cover;
-  background-repeat: repeat-x;
+background-size: cover;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
 }
