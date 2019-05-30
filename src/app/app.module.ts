@@ -7,8 +7,8 @@ import { RouterModule } from '@angular/router';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { NgxsModule } from '@ngxs/store';
-import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
-import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin';
+// import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
+// import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin';
 
 import { LayoutModule } from './layout/layout.module';
 import { AuthModule } from './auth/auth.module';
@@ -32,8 +32,8 @@ const SELF_MODULES = [
     NgxsModule.forRoot([
       AuthState
     ]),
-    NgxsReduxDevtoolsPluginModule.forRoot(),
-    NgxsLoggerPluginModule.forRoot(),
+    // NgxsReduxDevtoolsPluginModule.forRoot(),
+    // NgxsLoggerPluginModule.forRoot(),
     AppRoutingModule,
     RouterModule,
     HttpClientModule,

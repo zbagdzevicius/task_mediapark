@@ -28,9 +28,6 @@ export class LoginComponent implements OnInit {
       password: [this.user.password, [Validators.required, FormErrorMessagesService.passwordValidator]]
     }
     );
-
-
-    this.isLoggedIn$.subscribe(data => console.log(data));
   }
 
   ngOnInit() {
@@ -41,8 +38,6 @@ export class LoginComponent implements OnInit {
     if (this.userLoginForm.valid) {
       this.store.dispatch(new SetAuth({ email: this.user.email, loggedIn: true }));
       setTimeout(this.logout, 5 * 60 * 1000);
-    } else {
-      // console.log(this.userLoginForm. );
     }
   }
 

@@ -15,7 +15,12 @@ export class LogoutComponent implements OnInit {
   name: string;
 
   constructor(private store: Store) {
-    this.email$.subscribe(email => this.name = this.stripEmail(email));
+    this.email$.subscribe(email => {
+      if (email !== null) {
+        this.name = this.stripEmail(email);
+      }
+    }
+    );
   }
 
 
@@ -26,7 +31,7 @@ export class LogoutComponent implements OnInit {
     this.store.dispatch(new ResetAuth());
   }
 
-  stripEmail(email: string){
+  stripEmail(email: string) {
     const emailArray: string[] = email.split('@');
     return emailArray[0];
   }
